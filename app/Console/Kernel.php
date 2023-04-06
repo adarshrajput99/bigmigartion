@@ -2,9 +2,10 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\copy;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use Sykez\CronlessScheduler\CronlessSchedule;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -12,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        //$schedule->command('copy::class@index')->everyMinute();
     }
 
     /**
@@ -24,4 +25,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+    
 }
