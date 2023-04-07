@@ -11,15 +11,20 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        //$schedule->command('copy::class@index')->everyMinute();
+        $schedule->command('copy_com')->everyMinute();
     }
 
     /**
      * Register the commands for the application.
      */
-    protected function commands(): void
+    protected $commands = [
+
+        Commands\copy_com::class,
+     
+     ];
+     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
 
