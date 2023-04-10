@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\copy;
+use App\Http\Controllers\order_id;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,4 +15,5 @@ use App\Http\Controllers\copy;
 |
 */
 
-Route::get('/', [copy::class,'index']);
+Route::get('/migrate', [copy::class,'index']);
+Route::get('/', [order_id::class,'index']);

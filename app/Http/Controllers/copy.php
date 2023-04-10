@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 class copy extends Controller
 {
 function index(){
+    date_default_timezone_set('Asia/Kolkata');
+    $date = date('m/d/Y h:i:s a', time());
     $start = hrtime(true); 
     $offset=DB::connection('mysql2')->table('watchdogs')->count();
     $from=DB::connection('mysql')->select('select * from watchdog limit 4000 offset '.$offset);
@@ -20,6 +22,6 @@ function index(){
     $offset=DB::connection('mysql2')->table('watchdogs')->count();
     echo $offset;
     echo " records are done  and Time taken: {$duration} sec ";
-
+    echo $date;
 }
 }

@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql')->create('watchdogs', function (Blueprint $table) {
+        Schema::connection('mysql2')->create('watchdogs', function (Blueprint $table) {
+            
             $table->integer('wid')->primary()->nullable(false)->autoIncrement();
             $table->integer('uid')->default(0)->nullable(false);
             $table->string('type',64)->nullable(false);
@@ -23,6 +24,8 @@ return new class extends Migration
             $table->text('referer');
             $table->string('hostname',128)->nullable(false);
             $table->integer('timestamp')->default(0)->nullable(false);
+            $table->integer('Processed')->default(0);
+            $table->integer('order_id')->default(0);
         });
     }
 
