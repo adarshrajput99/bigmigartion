@@ -12,7 +12,7 @@ use function Symfony\Component\String\b;
 class order_id extends Controller
 {
     function search_oid($oid){
-        $from=DB::connection('mysql2')->select('select id,message from watchdogs where message  like \'%'.$oid.'%\' and Processed = 0');
+        $from=DB::connection('mysql')->select('select id,message from watchdogs where message  like \'%'.$oid.'%\' and Processed = 0');
         $skipper=strlen($oid);
         foreach($from as $message){
             $positon = strpos($message->message,$oid)+$skipper;
@@ -25,16 +25,16 @@ class order_id extends Controller
             }
             //echo $str;
             try{
-                DB::connection('mysql2')->update('update watchdogs set order_id = ?,Processed = 1 where id = ?',[$str,$message->id]);
+                DB::connection('mysql')->update('update watchdogs set order_id = ?,Processed = 1 where id = ?',[$str,$message->id]);
             }
             catch(Exception $e){
                 echo "Not done ".$message->id."The check was : ".substr($message->message,strpos($message->message,$oid),$positon+40)."<br>";
             }
-        } 
+        }
             return ;
     }
     function done(){
-        $processed = DB::connection('mysql2')->table('watchdogs')->where('processed','=',1)->count();
+        $processed = DB::connection('mysql')->table('watchdogs')->where('processed','=',1)->count();
         return $processed;
     }
 
@@ -51,5 +51,5 @@ class order_id extends Controller
 
         echo $this->done().": fields are Processed";
         }
-                   
+
 }

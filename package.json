@@ -2,7 +2,13 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "build-analytics": "cd nova-components/Analytics && npm run dev",
+        "build-analytics-prod": "cd nova-components/Analytics && npm run prod",
+        "build-nova-html-card": "cd nova-components/NovaHtmlCard && npm run dev",
+        "build-nova-html-card-prod": "cd nova-components/NovaHtmlCard && npm run prod",
+        "build-nova-cards": "cd nova-components/NovaCards && npm run dev",
+        "build-nova-cards-prod": "cd nova-components/NovaCards && npm run prod"
     },
     "devDependencies": {
         "axios": "^1.1.2",

@@ -14,7 +14,11 @@ use App\Http\Controllers\order_id;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/migrate2', [copy::class,'index']);
 
 Route::get('/migrate', [copy::class,'copy2']);
 Route::get('/', [order_id::class,'index']);
+#Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
