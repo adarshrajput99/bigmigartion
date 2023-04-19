@@ -14,6 +14,7 @@ function time_max(){
     return $lastInsertTime;
 }
 
+//copy from watchdogs
 function index(){
     date_default_timezone_set('Asia/Kolkata');
     $date = date('m/d/Y h:i:s a', time());
@@ -33,8 +34,8 @@ function index(){
     echo $date;
 }
 
+//copy from rws_revison-history
 function copy2(){
-    #echo "in copy 2";
     date_default_timezone_set('Asia/Kolkata');
     $date = date('m/d/Y h:i:s a', time());
     $start = hrtime(true);
@@ -61,5 +62,34 @@ function copy2(){
     echo " records are done  and Time taken: {$duration} sec ";
     echo $date;
 
+}
+
+//copy resource from remote
+function copy3(){
+    
+     date_default_timezone_set('Asia/Kolkata');
+     $date = date('m/d/Y h:i:s a', time());
+     $start = hrtime(true);
+     $offset=DB::connection('mysql')->table('resources')->count();
+     $from=DB::connection('mysql2')->select('select * from rws_revision_history_resource limit 4000 offset '.$offset);
+ 
+     foreach($from as $field ){
+         $modify = array('resource_id'=>$field->resource_id,
+                         'resource'=>$field->resource,
+                         'referer'=>$field->referer,
+                         'location'=>$field->location,
+                         'ip_address'=>$field->ip_address,
+                         'created'=>$field->created,
+                         );
+         DB::connection('mysql')->table('resources')->insert((array)$modify);
+     }
+     $end = hrtime(true);
+     $duration = ($end - $start) / 1e+9;
+     $offset=DB::connection('mysql')->table('resources')->count();
+     echo $offset;
+     echo " records are done  and Time taken: {$duration} sec ";
+     echo $date;
+ 
+ 
 }
 }

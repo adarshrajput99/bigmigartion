@@ -9,7 +9,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Cards\MyHtmlCard;
 use Degecko\NovaFiltersSummary\FiltersSummary;
-
+use PharIo\Manifest\Url;
+use Illuminate\Support\HtmlString;
 class watchdog extends Resource
 {
     /**
@@ -51,7 +52,7 @@ class watchdog extends Resource
             Text::make('wid')->sortable(),
             Text::make('uid')->sortable(),
             Text::make('type')->sortable(),
-            Text::make('message')->sortable(),
+            Text::make('message')->asHtml()->sortable(),
             Text::make('variable')->sortable(),
             Text::make('severity')->sortable(),
             Text::make('link')->sortable(),
@@ -67,6 +68,10 @@ class watchdog extends Resource
             Text::make('created')->sortable(),
             Text::make('log_type')->sortable(),
             Text::make('service_type')->sortable(),
+            
+            
+            
+            
         ];
     }
 

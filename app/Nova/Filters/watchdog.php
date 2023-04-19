@@ -46,8 +46,5 @@ class watchdog extends Filter
         return  $newoption;
     }
 
-    public function default()
-    {
-        return 'watchdog';
-    }
+    
 }
