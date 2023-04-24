@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('copy_com')->everyMinute();
+       $schedule->command('app:copy_com')->everyMinute();
     }
 
     /**

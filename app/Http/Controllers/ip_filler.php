@@ -33,13 +33,14 @@ class ip_filler extends Controller
         }
     }
     
+    //filler 
     function filler(){
         date_default_timezone_set('Asia/Kolkata');
         $date = date('m/d/Y h:i:s a', time());
         $start = hrtime(true);
     
         //'select id,order_id,processed,timestamp from watchdogs where timestamp != 0 and order_id != 0 order by timestamp  limit 4000'
-        $from=DB::connection('mysql')->table('watchdogs')->where('timestamp','!=',0)->where('order_id','!=',0)->get();
+        $from=DB::connection('mysql')->table('watchdogs')->where('timestamp','!=',0)->where('order_id','!=',0)->limit(100)->get();
         //$from_ip=DB::connection('mysql')->select('select * from    order by timestamp desc limit 4000');
         $count =0;
         foreach($from as $field){
@@ -82,12 +83,14 @@ class ip_filler extends Controller
         echo $count;
 
     }
+
+    //filler
     function fill_ip_from_resource(){
         date_default_timezone_set('Asia/Kolkata');
         $date = date('m/d/Y h:i:s a', time());
         $start = hrtime(true);
     
-        $from=DB::connection('mysql')->table('resource_merger')->where('order_id','!=',0)->get();
+        $from=DB::connection('mysql')->table('resource_merger')->where('order_id','!=',0)->limit(100)->get();
         //$from_ip=DB::connection('mysql')->select('select * from    order by created desc limit 4000');
         $count =0;
         foreach($from as $field){

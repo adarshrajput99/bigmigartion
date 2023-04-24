@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     */
 
     'connections' => [
-
+        
         'sync' => [
             'driver' => 'sync',
         ],
@@ -41,6 +41,7 @@ return [
             'retry_after' => 90,
             'after_commit' => false,
         ],
+        
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
@@ -65,7 +66,7 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
+            'queue' => 'default',
             'retry_after' => 90,
             'block_for' => null,
             'after_commit' => false,

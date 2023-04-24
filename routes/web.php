@@ -7,6 +7,8 @@ use App\Http\Controllers\order_id;
 use App\Http\Controllers\resource_id_finder;
 use App\Http\Controllers\resource_oid;
 use App\Http\Controllers\watchdog_message;
+use App\Http\Controllers\redis2;
+use App\Http\Controllers\fast_respond;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,11 @@ use App\Http\Controllers\watchdog_message;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::any('/rws_watchdog', [copy::class,'copy5']);
+Route::any('/rws_logs', [copy::class,'copy4']);
+Route::get('/', [fast_respond::class,'index']);
 Route::get('/copy_watchdogs', [copy::class,'index']);
+
 Route::get('/copy_rws_resource', [copy::class,'copy3']);
 Route::get('/copy_rws', [copy::class,'copy2']);
 Route::get('/fetch_order_id_from_message', [order_id::class,'index']);

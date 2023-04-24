@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql2')->create('watchdogs', function (Blueprint $table) {
+        Schema::connection('mysql')->create('watchdogs', function (Blueprint $table) {
             $table->id();
             $table->integer('wid')->nullable(true);
             $table->integer('uid')->nullable(true);

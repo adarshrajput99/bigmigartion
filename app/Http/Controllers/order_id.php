@@ -14,13 +14,11 @@ use function Symfony\Component\String\b;
 class order_id extends Controller
 {
     function search_oid($oid){
-        date_default_timezone_set('Asia/Kolkata');
-        $date = date('m/d/Y h:i:s a', time());
-        $start = hrtime(true);
-    
-        $from=DB::connection('mysql')->select('select id,message from watchdogs where message  like \'%'.$oid.'%\' and (Processed = 0 OR Processed = 400 OR Processed = 500)');
+       
+        $from=DB::connection('mysql')->select('select id,message from watchdogs where message  like \'%'.$oid.'%\' and (Processed = 0 OR Processed = 400 OR Processed = 500) limit 500');
         $skipper=strlen($oid);
         foreach($from as $message){
+            
             $positon = strpos($message->message,$oid)+$skipper;
             $check= substr($message->message,$positon,strlen($message->message)-$positon) ;
             $i=0;
@@ -35,13 +33,10 @@ class order_id extends Controller
             }
             catch(Exception $e){
                 DB::connection('mysql')->update('update watchdogs set Processed = 400 where id = ?',[$message->id]);
-                echo "Not done ".$message->id."The check was : ".substr($message->message,strpos($message->message,$oid),$positon+40)."<br>";
+               // echo "Not done ".$message->id."The check was : ".substr($message->message,strpos($message->message,$oid),$positon+40)."<br>";
             }
         }
-        $end = hrtime(true);
-        $duration = ($end - $start) / 1e+9;
-        echo " Time taken: {$duration} sec ";
-    
+       
        
             return ;
     }
@@ -51,6 +46,10 @@ class order_id extends Controller
     }
 
     function index(){
+        date_default_timezone_set('Asia/Kolkata');
+        $date = date('m/d/Y h:i:s a', time());
+        $start = hrtime(true);
+    
         $this->search_oid('order_id] => ');
         $this->search_oid('order_id":"');
         $this->search_oid('order_id] =>');
@@ -60,8 +59,13 @@ class order_id extends Controller
         $this->search_oid('order_id|s:7:"');
         $this->search_oid('Order ID: ');
         $this->search_oid('order_id');
-
+        $this->search_oid('order_id";s:7:"');
+        $this->search_oid('order_id=');
         echo $this->done().": fields are Processed by order_id";
-        }
 
+        $end = hrtime(true);
+        $duration = ($end - $start) / 1e+9;
+        echo " Time taken: {$duration} sec ";
+    
+        }
 }

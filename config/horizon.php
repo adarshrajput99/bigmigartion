@@ -182,7 +182,8 @@ return [
     'defaults' => [
         'supervisor-1' => [
             'connection' => 'redis',
-            'queue' => ['default'],
+            'queue' => ['default','jobs'],
+           // 'route' => App\Jobs\fastcopy::class,
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
             'maxProcesses' => 1,
@@ -190,7 +191,7 @@ return [
             'maxJobs' => 0,
             'memory' => 128,
             'tries' => 1,
-            'timeout' => 60,
+            'timeout' => 360,
             'nice' => 0,
         ],
     ],

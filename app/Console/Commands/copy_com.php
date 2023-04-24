@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\copy;
+use App\Http\Controllers\fast_respond;
+use App\Http\Controllers\processor;
 class copy_com extends Command
 {
     /**
@@ -25,7 +26,9 @@ class copy_com extends Command
      */
     public function handle()
     {
-        $x = new copy();
-        $response=$x->call('index',[]);
+        $object= app()->make(fast_respond::class);
+        $object->index();
+        $object= app()->make(processor::class);
+        $object->index();
     }
 }
