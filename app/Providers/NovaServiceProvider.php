@@ -13,6 +13,7 @@ use App\Nova\asrcard;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
 
+    private $user_authority;
     /**
      * Bootstrap any application services.
      *
@@ -21,7 +22,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+        Nova::serving(function () {
+            $user = request()->user();
 
+            if ($user) {
+                $name = $user->Authority;
+                $this->$user_authority= $name;
+                // Do something with the user's name here
+            }
+        });
         //$this->getCustomMenu();
 
     
@@ -87,12 +96,15 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        $user = request()->user();
-        if($user->Authority >0){
+        //$user = request()->user();
+        if($this->$user_authority >0){
             return [
                 new \App\Nova\Dashboards\Main,
             ];
         }
+        return [
+          
+        ];
         
     }
 
