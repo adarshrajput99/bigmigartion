@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('severity');
-            $table->text();
+            $table->text('type');
             $table->timestamps();
         });
     }
