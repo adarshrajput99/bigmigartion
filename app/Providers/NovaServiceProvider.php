@@ -8,8 +8,13 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Silvanite\NovaToolPermissions\NovaToolPermissions;
 use Sereny\NovaPermissions\NovaPermissions;
-use http\Env\Request;
+use Illuminate\Http\Request;
+use Laravel\Nova\Menu\MenuSection;
+use Laravel\Nova\Menu\MenuItem;
+use App\Nova\Dashboards\Main;
 use App\Nova\asrcard;
+use Illuminate\Support\Facades\Blade;
+
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
 
@@ -21,13 +26,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-
-       // $this->getCustomMenu();
-
-    
+        Nova::footer(function($request){
+            return Blade::render('nova/footer');
+        });
+       $this->getCustomMenu();
 }
-    
-    
+
+
 
     /**
      * Register the Nova routes.
@@ -41,8 +46,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ->withAuthenticationRoutes()
                 ->withPasswordResetRoutes()
                 ->register();
-        
-                
+
+
     }*/
 
     public function routes($middleware = ['web'])
@@ -87,10 +92,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        
+
         return [
             new \App\Nova\Dashboards\Main,
-            
+
         ];
     }
 
@@ -102,7 +107,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-          
+
         ];
     }
 
@@ -119,10 +124,25 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::mainMenu(function (Request $request){
             return [
-                MenuSection::dashboard(Main::class)
+               MenuSection::dashboard(Main::class)->icon('chart-bar'),
+                MenuSection::make('Records',[
+                    MenuItem::make('Watchdog','/resources/watchdogs'),
+                    MenuItem::make('Task','/resources/task_types'),
+
+                ])->icon('check-circle')->collapsable(),
+                MenuSection::make('Rules',[
+                    MenuItem::make('Create Rules','/resources/rules/new'),
+                    MenuItem::make('Registerd Rules','/resources/rules'),
+                    MenuItem::make('Status','/resources/rule_statuses'),
+
+                ])->icon('chip')->collapsable(),
+                MenuSection::make('Users',[
+                    MenuItem::make('Users','/resources/user'),
+
+                ])->icon('user')->collapsable()
             ];
         });
     }
-   
+
 
     }

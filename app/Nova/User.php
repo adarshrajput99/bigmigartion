@@ -42,6 +42,7 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+    
     /**
      * Get the fields displayed by the resource.
      *

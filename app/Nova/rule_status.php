@@ -5,16 +5,19 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class task extends Resource
+class rule_status extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\task_type>
+     * @var class-string<\App\Models\rule_status>
      */
-    public static $model = \App\Models\task_type::class;
+    public static $model = \App\Models\rule_status::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,17 +34,10 @@ class task extends Resource
     public static $search = [
         'id',
     ];
-     /**
-     * Determine if the user is authorized to create the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return bool
-     */
     public static function authorizedToCreate(Request $request)
     {
         return false;
     }
-
     /**
      * Get the fields displayed by the resource.
      *
@@ -52,10 +48,17 @@ class task extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title','title')->hideWhenUpdating()->hideWhenCreating()->sortable(),
-            Text::make('severity')->hideWhenUpdating()->hideWhenCreating()->sortable(),
-            Text::make('type')->hideWhenCreating()->sortable(),
-
+            Select::make('Event Type','event_type')->options([
+                'Important'=> 'Important',
+                'Not Important'=> 'Not Important',
+                'Risky'=> 'Risky',
+                'Trash'=>'Trash'
+           ])->displayUsingLabels()->sortable(),
+            Number::make('Event Duration','event_duration')->help('Duration (in minutes)')->sortable(),
+            Number::make('Occurrence','occurence')->sortable(),
+            Number::make('Frequency','frequency')->sortable(),
+            //Number::make('Frequency','frequency')->sortable(),
+            Text::make('Last executed','last_executed')->sortable(),
         ];
     }
 
