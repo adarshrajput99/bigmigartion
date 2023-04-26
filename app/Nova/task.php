@@ -31,6 +31,16 @@ class task extends Resource
     public static $search = [
         'id',
     ];
+     /**
+     * Determine if the user is authorized to create the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public static function authorizedToCreate(Request $request)
+    {
+        return false;
+    }
 
     /**
      * Get the fields displayed by the resource.
