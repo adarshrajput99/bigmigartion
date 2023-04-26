@@ -93,20 +93,21 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         $user = Auth::user();
     if ($user !== null) {
         $authority = $user->Authority;
-    if($authority>0){
+    if($authority<1){
         return [
             new \App\Nova\Dashboards\Main,
         ];
     }
-    } else {
-    // Handle the case where the user is not authenticated
-    }
-        
+    else{
         return[
-
+            new \App\Nova\Dashboards\executive,
         ];
-        
+    }      
     }
+    else{
+        return [];
+    }
+}
 
     /**
      * Get the tools that should be listed in the Nova sidebar.
