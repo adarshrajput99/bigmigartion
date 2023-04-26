@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class task extends Resource
@@ -41,9 +42,9 @@ class task extends Resource
     {
         return [
             ID::make()->sortable(),
-            TEXT::make('Title','title')->sortable(),
-            TEXT::make('severity')->sortable(),
-            TEXT::make('title')->sortable(),
+            Text::make('Title','title')->hideWhenUpdating()->hideWhenCreating()->sortable(),
+            Text::make('severity')->hideWhenUpdating()->hideWhenCreating()->sortable(),
+            Text::make('type')->hideWhenCreating()->sortable(),
 
         ];
     }
