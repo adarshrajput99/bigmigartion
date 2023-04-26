@@ -52,7 +52,7 @@ class watchdog extends Resource
             Text::make('wid')->sortable(),
             Text::make('uid')->sortable(),
             Text::make('type')->sortable(),
-            Text::make('message')->asHtml()->sortable(),
+            Text::make('message')->hideFromIndex()->asHtml()->sortable(),
             Text::make('variable')->sortable(),
             Text::make('severity')->sortable(),
             Text::make('link')->sortable(),
@@ -66,8 +66,8 @@ class watchdog extends Resource
             Text::make('Processed')->sortable(),
             Text::make('order_id')->sortable(),
             Text::make('created')->sortable(),
-            Text::make('log_type')->sortable(),
-            Text::make('service_type')->sortable(),
+            Text::make('log_type')->hideFromIndex()->sortable(),
+            Text::make('service_type')->hideFromIndex()->sortable(),
             
             
             
