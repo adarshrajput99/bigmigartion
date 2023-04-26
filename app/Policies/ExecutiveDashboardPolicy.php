@@ -13,7 +13,7 @@ class ExecutiveDashboardPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->Authority>0;
     }
 
     /**
@@ -21,7 +21,9 @@ class ExecutiveDashboardPolicy
      */
     public function view(User $user, Dashboard $dashboard): bool
     {
-        //
+        
+        return $user->Authority>0;
+
     }
 
     /**
@@ -30,6 +32,8 @@ class ExecutiveDashboardPolicy
     public function create(User $user): bool
     {
         //
+        return $user->Authority>0;
+
     }
 
     /**
@@ -38,6 +42,8 @@ class ExecutiveDashboardPolicy
     public function update(User $user, Dashboard $dashboard): bool
     {
         //
+        return $user->Authority>0;
+
     }
 
     /**
@@ -46,6 +52,8 @@ class ExecutiveDashboardPolicy
     public function delete(User $user, Dashboard $dashboard): bool
     {
         //
+        return $user->Authority>0;
+
     }
 
     /**
@@ -54,6 +62,8 @@ class ExecutiveDashboardPolicy
     public function restore(User $user, Dashboard $dashboard): bool
     {
         //
+        return $user->Authority>0;
+
     }
 
     /**
@@ -62,5 +72,7 @@ class ExecutiveDashboardPolicy
     public function forceDelete(User $user, Dashboard $dashboard): bool
     {
         //
+        return $user->Authority>0;
+
     }
 }
