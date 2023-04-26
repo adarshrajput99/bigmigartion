@@ -163,7 +163,7 @@ return [
     */
 
     'brand' => [
-     'logo' => resource_path('/home/adarsh/try/bigmigartion/resources/restolabs.png'),
+     'logo' => public_path('resources/restolabs.svg'),
 
      
      ],
