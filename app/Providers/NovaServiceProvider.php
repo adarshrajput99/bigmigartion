@@ -8,7 +8,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Silvanite\NovaToolPermissions\NovaToolPermissions;
 use Sereny\NovaPermissions\NovaPermissions;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Nova\asrcard;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -87,9 +87,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        return [
-            new \App\Nova\Dashboards\Main,
-        ];
+        if(request()->user()->Authority >0){
+            return [
+                new \App\Nova\Dashboards\Main,
+            ];
+        }
+        
     }
 
     /**
