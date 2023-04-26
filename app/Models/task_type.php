@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class type extends Model
+class task_type extends Model
 {
     protected $fillable =[
-        'id','title','sevierit
-        '
+        'id','title','severity','type'
+        
     ];
     use HasFactory;
 }
