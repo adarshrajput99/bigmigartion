@@ -41,6 +41,10 @@ class task extends Resource
     {
         return [
             ID::make()->sortable(),
+            TEXT::make('title')->sortable(),
+            TEXT::make('')->sortable(),
+            TEXT::make('title')->sortable(),
+
         ];
     }
 
