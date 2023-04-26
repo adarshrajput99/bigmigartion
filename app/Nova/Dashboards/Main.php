@@ -4,7 +4,7 @@ namespace App\Nova\Dashboards;
 
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Dashboards\Main as Dashboard;
-
+use App\Nova\Cards\MyHtmlCard;
 class Main extends Dashboard
 {
     /**
@@ -16,7 +16,7 @@ class Main extends Dashboard
     {
         return [
             (new MyHtmlCard()), // Required
-            (FiltersSummary::make())->stacked(),
+            //(FiltersSummary::make())->stacked(),
         ];
     }
 }
