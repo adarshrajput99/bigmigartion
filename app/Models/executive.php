@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class executive extends Model
 {
+    protected $fillable =[
+        'id','name'
+    ];
     use HasFactory;
 }
