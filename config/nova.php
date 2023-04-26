@@ -163,7 +163,7 @@ return [
     */
 
     'brand' => [
-     'logo' => public_path('resources/restolabs.svg'),
+     'logo' => public_path('/images/restolabs.svg'),
 
      
      ],
