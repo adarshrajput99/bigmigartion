@@ -28,7 +28,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     // Redirect to custom route after login
     Nova::serving(function (ServingNova $event) {
         Route::get('/restolabs/login', function (Request $request) {
-            return redirect('/');
+            return redirect('/restolabs/dashboards/executive');
         });
     });
 }
@@ -51,23 +51,13 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 
     }*/
 
-    public function routes($middleware = ['web'])
+    public function routes()
     {
         Nova::routes()
                 ->withAuthenticationRoutes()
                 ->withPasswordResetRoutes()
                 ->register();
-                /*
-        Route::namespace('App\Nova\Http\Controllers\Auth')
-            ->middleware($middleware)
-            ->as('nova.')
-            ->prefix(Nova::path())
-            ->group(function () {
-                Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-                Route::post('login', 'Auth\LoginController@login');
-                //Route::get('/login', 'LoginController@showLoginForm');
-                //Route::post('/login', 'LoginController@login')->name('login');
-            });*/
+               
         }
 
     /**
@@ -80,10 +70,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-           /* return in_array($user->email, [
-                //
-            ]);
-        */});
+           });
     }
 
     /**
