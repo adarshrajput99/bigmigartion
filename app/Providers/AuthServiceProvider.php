@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Providers;
-
+use App\Nova\Dashboards\executive;
+use App\Policies\ExecutiveDashboardPolicy;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -13,7 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Dashboard::class => ExecutiveDashboardPolicy::class,
+        ExecutiveDashboardPolicy::class => ExecutiveDashboardPolicy::class,
             ];
 
     /**
