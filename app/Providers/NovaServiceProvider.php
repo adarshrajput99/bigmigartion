@@ -22,7 +22,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
 
-        $this->getCustomMenu();
+        //$this->getCustomMenu();
 
     
 }

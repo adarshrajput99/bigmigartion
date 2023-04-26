@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('executives', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('Authority')->default(2);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
