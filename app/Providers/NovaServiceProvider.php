@@ -92,7 +92,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [
-            new \App\Nova\Dashboards\executive,
+            (new App\Nova\Dashboards\executive)->canSee(function ($request) {
+                return $request->user()->can('viewUserInsights', User::class);
+            }),
         ];
     }
 
