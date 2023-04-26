@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Nova\Dashboards;
+use App\Nova\Cards\MyHtmlCard;
 
 use Laravel\Nova\Dashboard;
 
