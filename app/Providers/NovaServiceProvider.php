@@ -10,6 +10,8 @@ use Silvanite\NovaToolPermissions\NovaToolPermissions;
 use Sereny\NovaPermissions\NovaPermissions;
 use http\Env\Request;
 use App\Nova\asrcard;
+use App\Nova\Dashboards\executive;
+
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
 
@@ -93,7 +95,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         
         return [
-            (new App\Nova\Dashboards\executive)
+            (new executive)
         ];
     }
 
