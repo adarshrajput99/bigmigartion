@@ -8,6 +8,7 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Silvanite\NovaToolPermissions\NovaToolPermissions;
 use Sereny\NovaPermissions\NovaPermissions;
+use Illuminate\Support\Facades\Auth;
 //use Illuminate\Http\Request;
 use App\Nova\asrcard;
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -22,15 +23,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-        Nova::serving(function () {
-            $user = request()->user();
-
-            if ($user) {
-                $name = $user->Authority;
-                $this->$user_authority= $name;
-                // Do something with the user's name here
-            }
-        });
+      
         //$this->getCustomMenu();
 
     
@@ -97,21 +90,17 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         
-        
-        try{
-            $user = Nova::user();
-            $userName = $user->Authority;
-            if($userName>0){
-                return [
-                    new \App\Nova\Dashboards\Main,
-                ];
-            }
-        }
-        catch(Exception $e){
-            return [
-          
-            ];
-        }
+        $user = Auth::user();
+    if ($user !== null) {
+        $authority = $user->Authority;
+    if($authority>0){
+        return [
+            new \App\Nova\Dashboards\Main,
+        ];
+    }
+    } else {
+    // Handle the case where the user is not authenticated
+    }
         
         return[
 
