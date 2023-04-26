@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Providers;
-
+use Route;
+use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
@@ -20,21 +21,52 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-        //Nova::defaultMainMenu(Re);
-    }
+
+
+    // Redirect to custom route after login
+    Nova::serving(function (ServingNova $event) {
+        Route::get('/restolabs/login', function (Request $request) {
+            return redirect('/');
+        });
+    });
+}
+    
+    
 
     /**
      * Register the Nova routes.
      *
      * @return void
      */
+    /*
     protected function routes()
     {
         Nova::routes()
                 ->withAuthenticationRoutes()
                 ->withPasswordResetRoutes()
                 ->register();
-    }
+        
+                
+    }*/
+
+    public function routes($middleware = ['web'])
+    {
+        Nova::routes()
+                ->withAuthenticationRoutes()
+                ->withPasswordResetRoutes()
+                ->register();
+                /*
+        Route::namespace('App\Nova\Http\Controllers\Auth')
+            ->middleware($middleware)
+            ->as('nova.')
+            ->prefix(Nova::path())
+            ->group(function () {
+                Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+                Route::post('login', 'Auth\LoginController@login');
+                //Route::get('/login', 'LoginController@showLoginForm');
+                //Route::post('/login', 'LoginController@login')->name('login');
+            });*/
+        }
 
     /**
      * Register the Nova gate.
@@ -72,7 +104,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            #new NovaPermissions(),
+          
         ];
     }
 
@@ -85,5 +117,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         //
     }
+   
 
     }

@@ -29,7 +29,7 @@ class watchdogPolicy
      */
     public function create(User $user): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 
     /**
@@ -37,14 +37,14 @@ class watchdogPolicy
      */
     public function update(User $user, watchdog $watchdog): bool
     {
-        return $user->is_admin;    }
+        return ($user->is_admin)>0;    }
 
     /**
      * Determine whether the user can delete the model.
      */
     public function delete(User $user, watchdog $watchdog): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 
     /**
@@ -52,13 +52,13 @@ class watchdogPolicy
      */
     public function restore(User $user, watchdog $watchdog): bool
     {
-        return $user->is_admin;    }
+        return ($user->is_admin)>0;    }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(User $user, watchdog $watchdog): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 }

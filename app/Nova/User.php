@@ -14,8 +14,8 @@ use HasRoles;
 use Sereny\NovaPermissions\Fields\Checkboxes;
 use Silvanite\NovaToolPermissions\Role;
 use Laravel\Nova\Fields\MorphToMany;
-
-
+use App\Nova\lenses\MyLens;
+use Laravel\Nova\Fields\Select;
 
 class User extends Resource
 {
@@ -72,7 +72,12 @@ class User extends Resource
                 #MorphToMany::make('Roles', 'roles', \Sereny\NovaPermissions\Nova\Role::class),
                 #MorphToMany::make('Permissions', 'permissions', \Sereny\NovaPermissions\Nova\Permission::class),
 
-            Boolean::make('is_admin')->sortable()
+                Select::make('Authority')->options([
+                     1=> 'admin',
+                     0=> 'user',
+                     2=> 'executive'
+                ])->displayUsingLabels()->sortable(),
+
                # BelongsToMany::make('Roles', 'roles', Role::class),
         ];
     }
@@ -109,7 +114,9 @@ class User extends Resource
      */
     public function lenses(NovaRequest $request)
     {
-        return [];
+        return [
+            new MyLens,
+        ];
     }
 
     /**

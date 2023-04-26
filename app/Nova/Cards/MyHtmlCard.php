@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Nova\Cards;
-
+use Illuminate\Http\Request;
+use \Laravel\Nova\Http\Requests\NovaRequest;
 use Abordage\HtmlCard\HtmlCard;
 use App\Http\Controllers\copy;
 use App\Models\watchdog;
@@ -16,7 +17,7 @@ class MyHtmlCard extends HtmlCard
     /**
      * The width of the card (1/2, 1/3, 1/4 or full).
      */
-    public $width = '1/3';
+    public $width = 'full';
 
     /**
      * The height strategy of the card (fixed or dynamic).
@@ -27,6 +28,10 @@ class MyHtmlCard extends HtmlCard
      */
     public bool $center = true;
 
+    public function authorizedToSee(Request $request)
+    {
+        return auth()->user()->Authority >= 1;
+    }
     /**
      * Html content
      */
@@ -48,10 +53,21 @@ class MyHtmlCard extends HtmlCard
         //$lastInsertTime = DB::connection('mysql')->table('watchdogs')->smax('updated_at');
         return date("d-m-y h:i:sa",$maxValue);
         }   
-    public function content(): string
+      public function content(): string
      {
-         $time=$this->time_max();
-         $time2=$this->time_max_rws();
-        return '<p>Last Updated at watchdog : <br> '.$time.'</p><p>Last Updated at rws_revison_history : <br>'.$time2.'</p>';
+      $time=$this->time_max();
+        $time2=$this->time_max_rws();
+        $returner ='<h1>Last Updated at watchdog : '.$time.'</h1>
+        <h2>Last Updated at rws_revison_history : '.$time2.'</h2>
+        <div style="text-align: center;">';
+          
+      if(auth()->user()->Authority === 2){
+        $returner=$returner.'<a style="text-align:center;" href="'.url("copy_rws").'">copy rws<br></a>
+       <a style="text-align:center;" href="'.url("copy_watchdogs").'">Get watchdogs</a>
+       </div>';
+      }
+      
+        return $returner;
+      
      }
 }

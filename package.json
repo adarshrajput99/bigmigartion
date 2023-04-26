@@ -8,7 +8,9 @@
         "build-nova-html-card": "cd nova-components/NovaHtmlCard && npm run dev",
         "build-nova-html-card-prod": "cd nova-components/NovaHtmlCard && npm run prod",
         "build-nova-cards": "cd nova-components/NovaCards && npm run dev",
-        "build-nova-cards-prod": "cd nova-components/NovaCards && npm run prod"
+        "build-nova-cards-prod": "cd nova-components/NovaCards && npm run prod",
+        "build-custom-login": "cd nova-components/CustomLogin && npm run dev",
+        "build-custom-login-prod": "cd nova-components/CustomLogin && npm run prod"
     },
     "devDependencies": {
         "axios": "^1.1.2",

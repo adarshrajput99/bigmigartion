@@ -12,14 +12,14 @@ class userPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->is_admin;    }
+        return ($user->is_admin)>0;    }
 
     /**
      * Determine whether the user can view the model.
      */
     public function view(User $user, user $model): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 
     /**
@@ -27,7 +27,7 @@ class userPolicy
      */
     public function create(User $user): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 
     /**
@@ -35,7 +35,7 @@ class userPolicy
      */
     public function update(User $user, user $model): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 
     /**
@@ -43,7 +43,7 @@ class userPolicy
      */
     public function delete(User $user, user $model): bool
     {
-        return $user->is_admin;
+        return ($user->is_admin)>0;
     }
 
     /**
@@ -51,12 +51,12 @@ class userPolicy
      */
     public function restore(User $user, user $model): bool
     {
-        return $user->is_admin;    }
+        ($user->is_admin)>0;    }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
     public function forceDelete(User $user, user $model): bool
     {
-        return $user->is_admin;    }
+        return ($user->is_admin)>0;    }
 }

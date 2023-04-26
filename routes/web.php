@@ -19,7 +19,12 @@ use App\Http\Controllers\fast_respond;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::any('/rws_watchdog', [copy::class,'copy5']);
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+
+Route::any('/rws_watchdog', [copy::class,'copy5'])->name('custom.route');;
 Route::any('/rws_logs', [copy::class,'copy4']);
 Route::get('/', [fast_respond::class,'index']);
 Route::get('/copy_watchdogs', [copy::class,'index']);

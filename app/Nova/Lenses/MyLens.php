@@ -8,7 +8,7 @@ use Laravel\Nova\Http\Requests\LensRequest;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Lenses\Lens;
 
-class mylens extends Lens
+class MyLens extends Lens
 {
     /**
      * The columns that should be searched.
@@ -26,9 +26,7 @@ class mylens extends Lens
      */
     public static function query(LensRequest $request, $query)
     {
-        return $request->withOrdering($request->withFilters(
-            $query
-        ));
+        return $query->where('is_admin', true);
     }
 
     /**
@@ -40,7 +38,9 @@ class mylens extends Lens
     public function fields(NovaRequest $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
+            ID::make(),
+            Text::make('Name'),
+            Text::make('Email'),
         ];
     }
 
@@ -84,6 +84,6 @@ class mylens extends Lens
      */
     public function uriKey()
     {
-        return 'mylens';
+        return 'my-lens';
     }
 }
