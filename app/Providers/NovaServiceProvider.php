@@ -96,6 +96,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
+        Nova::serving(function () {
+            $user = Nova::user();
+            $userName = $user->name;
+
+           
+        });
         $user = request()->user()->Authority;
         if($user>0){
             return [
