@@ -8,13 +8,11 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Silvanite\NovaToolPermissions\NovaToolPermissions;
 use Sereny\NovaPermissions\NovaPermissions;
-use Illuminate\Support\Facades\Auth;
-//use Illuminate\Http\Request;
+use http\Env\Request;
 use App\Nova\asrcard;
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
 
-    //public $user_authority;
     /**
      * Bootstrap any application services.
      *
@@ -23,8 +21,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-      
-        //$this->getCustomMenu();
+
+       // $this->getCustomMenu();
 
     
 }
@@ -89,25 +87,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        
-        $user = Auth::user();
-    if ($user !== null) {
-        $authority = $user->Authority;
-    if($authority<1){
         return [
             new \App\Nova\Dashboards\Main,
         ];
     }
-    else{
-        return[
-            new \App\Nova\Dashboards\executive,
-        ];
-    }      
-    }
-    else{
-        return [];
-    }
-}
 
     /**
      * Get the tools that should be listed in the Nova sidebar.
