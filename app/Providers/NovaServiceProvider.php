@@ -8,10 +8,8 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Silvanite\NovaToolPermissions\NovaToolPermissions;
 use Sereny\NovaPermissions\NovaPermissions;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use App\Nova\asrcard;
-use App\Nova\Dashboards\executive;
-
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
 
@@ -24,13 +22,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
 
+        $this->getCustomMenu();
 
-    // Redirect to custom route after login
-    Nova::serving(function (ServingNova $event) {
-        Route::get('/restolabs/login', function (Request $request) {
-            return redirect('/restolabs/dashboards/executive');
-        });
-    });
+    
 }
     
     
@@ -51,13 +45,23 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 
     }*/
 
-    public function routes()
+    public function routes($middleware = ['web'])
     {
         Nova::routes()
                 ->withAuthenticationRoutes()
                 ->withPasswordResetRoutes()
                 ->register();
-               
+                /*
+        Route::namespace('App\Nova\Http\Controllers\Auth')
+            ->middleware($middleware)
+            ->as('nova.')
+            ->prefix(Nova::path())
+            ->group(function () {
+                Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+                Route::post('login', 'Auth\LoginController@login');
+                //Route::get('/login', 'LoginController@showLoginForm');
+                //Route::post('/login', 'LoginController@login')->name('login');
+            });*/
         }
 
     /**
@@ -70,7 +74,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-           });
+           /* return in_array($user->email, [
+                //
+            ]);
+        */});
     }
 
     /**
@@ -80,9 +87,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        
         return [
-            (new executive)
+            new \App\Nova\Dashboards\Main,
         ];
     }
 
@@ -106,6 +112,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function register()
     {
         //
+    }
+    private function getCustomMenu(){
+
+        Nova::mainMenu(function (Request $request){
+            return [
+                MenuSection::dashboard(Main::class)
+            ];
+        });
     }
    
 
