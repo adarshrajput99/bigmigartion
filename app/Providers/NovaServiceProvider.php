@@ -87,7 +87,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        if(request()->user()->Authority >0){
+        $user = request()->user();
+        if($user->Authority >0){
             return [
                 new \App\Nova\Dashboards\Main,
             ];
