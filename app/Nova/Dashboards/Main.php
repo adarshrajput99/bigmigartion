@@ -15,7 +15,12 @@ class Main extends Dashboard
      */
     public function navigation()
 {
-    $user = request()->user();
+    
+}
+
+    public function cards()
+    {
+        $user = request()->user();
 
     return [
         // your navigation menu items here
@@ -27,13 +32,5 @@ class Main extends Dashboard
             },
         ],
     ];
-}
-
-    public function cards()
-    {
-        return [
-            (new MyHtmlCard()), // Required
-            //(FiltersSummary::make())->stacked(),
-        ];
     }
 }
