@@ -15,8 +15,8 @@ return new class extends Migration
         CREATE TRIGGER insert_trigger AFTER INSERT ON rules
         FOR EACH ROW
         BEGIN
-            INSERT INTO laravel.rule_statuses (id, event_type, event_duration, occurence,frequency,last_executed,created_at,updated_at)
-            VALUES (NEW.id ,NEW.event_type,NEW.event_duration,NEW.occurence,NEW.frequency,NOW(), NOW(), NOW());
+            INSERT INTO laravel.rule_statuses (id, event_type,title, event_duration,event_from,event_to, occurence,frequency,last_executed,created_at,updated_at,frequency_check,From_freq,To_freq)
+            VALUES (NEW.id ,NEW.event_type,NEW.title,NEW.event_duration,NEW.event_from,New.event_to,NEW.occurence,NEW.frequency,NOW(), NOW(), NOW(),NEW.frequency_check,NEW.From_freq,NEW.To_freq);
         END
     ');
     }

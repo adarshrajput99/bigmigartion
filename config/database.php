@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-
+use Illuminate\Database\DBAL\TimestampType;
 return [
 
     /*
@@ -34,7 +34,7 @@ return [
     */
 
     'connections' => [
-        
+
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
@@ -111,6 +111,11 @@ return [
             'prefix_indexes' => true,
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+        ],
+        'dbal' => [
+            'types' => [
+                'timestamp' => TimestampType::class,
+            ],
         ],
 
     ],

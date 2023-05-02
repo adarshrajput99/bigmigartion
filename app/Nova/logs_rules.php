@@ -6,19 +6,16 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Date;
-use Oneduo\NovaTimeField\Time;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\FormData;
-class rule_status extends Resource
+
+class logs_rules extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\rule_status>
+     * @var class-string<\App\Models\logs_rules>
      */
-    public static $model = \App\Models\rule_status::class;
+    public static $model = \App\Models\logs_rules::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -39,6 +36,7 @@ class rule_status extends Resource
     {
         return false;
     }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -47,31 +45,11 @@ class rule_status extends Resource
      */
     public function fields(NovaRequest $request)
     {
-
-
         return [
             ID::make()->sortable(),
-            Select::make('Event Type','event_type')->options([
-                'Important'=> 'Important',
-                'Not Important'=> 'Not Important',
-                'Risky'=> 'Risky',
-                'Trash'=>'Trash'
-           ])->displayUsingLabels()->sortable(),
-           Text::make('Event Duration', 'event_duration')
-           ->sortable()->hideWhenCreating()
-           ,
-           Date::make('Event Duration', 'event_duration')
-           ->sortable()->sortable()->hideFromDetail()->hideFromIndex()->hideWhenUpdating()
-           ,            Time::make('From','event_from'),
-            Time::make('To','event_to'),
-
-            Number::make('Occurrence','occurence')->sortable(),
-            Number::make('Frequency','frequency')->sortable(),
-            //Number::make('Frequency','frequency')->sortable(),
-            Text::make('Last executed','last_executed')->sortable(),
-            Text::make('Frequency enabled','frequency_check')->sortable(),
-            Text::make('From freq','From_freq')->sortable(),
-            Text::make('To freq','To_freq')->sortable(),
+            Number::make('Rule ID', 'rule_id'),
+            Text::make('Rule Type', 'rule_type'),
+            Text::make('Exec', 'exec')
         ];
     }
 

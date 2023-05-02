@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Doctrine\DBAL\Types\Type;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //Type::addType('timestamp', 'Doctrine\DBAL\Types\TimestampType');
     }
 }

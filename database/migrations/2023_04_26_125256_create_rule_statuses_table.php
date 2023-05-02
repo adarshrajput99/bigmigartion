@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rule_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('event_type');
+            $table->string('title');
             $table->integer('event_duration');
             $table->integer('occurence');
             $table->integer('frequency');

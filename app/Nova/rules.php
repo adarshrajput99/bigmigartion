@@ -2,13 +2,20 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
+
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
+
+use Laravel\Nova\Fields\Date;
+use Oneduo\NovaTimeField\Time;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\FormData;
+use Laravel\Nova\Fields\Text;
+use NormanHuth\NovaRadioField\Radio;
+use Formfeed\DependablePanel\DependablePanel;
 
 use Laravel\Nova\Http\Requests\NovaRequest;
+use DB;
 
 class rules extends Resource
 {
@@ -24,7 +31,7 @@ class rules extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -51,10 +58,96 @@ class rules extends Resource
                 'Risky'=> 'Risky',
                 'Trash'=>'Trash'
            ])->displayUsingLabels()->sortable(),
-            Number::make('Event Duration','event_duration')->help('Duration (in minutes)')->sortable(),
+
+        Select::make('Title', 'title')
+        ->dependsOn(
+        ['event_type'],
+        function (Select $field, NovaRequest $request, FormData $formData) {
+
+                $titles = DB::table('task_types')->where('type', $formData->event_type)->pluck('title');
+                $options = $titles->mapWithKeys(function ($title) {
+                    return [$title => $title];
+                })->toArray();
+                $field->options($options);
+
+        }
+    ),
+
+    Radio::make(__('Range Based Frequency'), 'frequency_check')
+    ->options([
+        0 => __('No'),
+        1 => __('Yes'),
+
+
+
+    ]),
+
+            Text::make('Event Duration', 'event_duration')
+            ->sortable()->hideWhenCreating()
+            ,
+            Date::make('Event Duration', 'event_duration')
+            ->sortable()->sortable()->dependsOn(
+                ['frequency_check'],
+                function (Date $field, NovaRequest $request, FormData $formData) {
+
+                        if($formData->frequency_check){
+                            return $field->readonly(true)->sortable();
+                        }
+
+                })->hideFromDetail()->hideFromIndex()->hideWhenUpdating()
+            ,
+           Time::make('From','event_from')->readonly(false)->dependsOn(
+            ['frequency_check'],
+            function (Time $field, NovaRequest $request, FormData $formData) {
+
+                    if($formData->frequency_check ){
+                        $field->value = null;
+                        return $field->readonly(true)->sortable();
+                    }
+
+            }),
+           Time::make('To','event_to')->nullable()->readonly(false)->dependsOn(
+            ['frequency_check'],
+            function (Time $field, NovaRequest $request, FormData $formData) {
+
+                    if($formData->frequency_check ){
+
+                        return $field->readonly(true)->sortable();
+                    }
+
+            }),
             Number::make('Occurrence','occurence')->sortable(),
-            Number::make('Frequency','frequency')->sortable(),
-        ];
+
+        DependablePanel::make('Panel Title', [
+            Number::make('From','From_freq'),
+            Number::make('To','To_freq')->sortable(),
+            Select::make('Frequency', 'frequency')
+            ->dependsOn(
+            ['frequency_check'],
+            function (Select $field, NovaRequest $request, FormData $formData) {
+
+                    if($formData->frequency_check ){
+                        return $field->readonly(false)->options([
+                            'Minute'=> 'Minute',
+                            'Hour'=> 'Hour',
+                            'Day'=> 'Day',
+                            'Month'=>'Month',
+                            'None'=>'Execute Only once Choose the duration'
+                    ])->displayUsingLabels()->sortable();
+                    }
+
+            }),
+        ])->hide()
+        ->dependsOn(["frequency_check"], function (DependablePanel $panel, NovaRequest $request, FormData $formData) {
+            if ($formData->frequency_check ) {
+                $formData->event_duration = null;
+
+                $panel->show();
+            }
+        }),
+            //Number::make('Frequency','frequency')->sortable(),
+            // Select::make('Frequency','frequency')->,
+         ];
     }
 
     /**

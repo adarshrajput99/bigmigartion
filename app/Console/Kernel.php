@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-       $schedule->command('app:copy_com')->everyMinute();
+       $schedule->command('app:queue_task_push')->everyMinute();
     }
 
     /**
@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
 
         Commands\copy_com::class,
-     
+
      ];
      protected function commands(): void
     {
@@ -30,5 +30,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
-    
+
 }

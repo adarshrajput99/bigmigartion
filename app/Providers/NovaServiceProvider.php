@@ -134,6 +134,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                     MenuItem::make('Create Rules','/resources/rules/new'),
                     MenuItem::make('Registerd Rules','/resources/rules'),
                     MenuItem::make('Status','/resources/rule_statuses'),
+                    MenuItem::make('Logs','/resources/logs_rules'),
 
                 ])->icon('chip')->collapsable(),
                 MenuSection::make('Users',[
