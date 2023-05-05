@@ -10,7 +10,7 @@ use NunoMaduro\Collision\Writer;
 class copy extends Controller
 {
 
-    
+
 function time_max(){
     $lastInsertTime = DB::connection('mysql')->table('watchdogs')->max('updated_at');
     return $lastInsertTime;
@@ -18,7 +18,7 @@ function time_max(){
 
 //copy from watchdogs
 function index(){
-    
+
     date_default_timezone_set('Asia/Kolkata');
     $date = date('m/d/Y h:i:s a', time());
     $start = hrtime(true);
@@ -50,8 +50,8 @@ function copy2(){
         $offset =0;
     }
     echo $offset;
-    
-    $from=DB::connection('mysql2')->select('select * from rws_revision_history where rhid > '.$offset.' limit 4000 ');
+
+    $from=DB::connection('mysql3')->select('select * from rws_revision_history where rhid > '.$offset.' limit 4000 ');
 
     foreach($from as $field ){
         $modify = array('rhid'=>$field->rhid,
@@ -77,7 +77,7 @@ function copy2(){
 
 //copy resource from remote
 function copy3(){
-    
+
      date_default_timezone_set('Asia/Kolkata');
      $date = date('m/d/Y h:i:s a', time());
      $start = hrtime(true);
@@ -85,8 +85,8 @@ function copy3(){
      if($offset == NULL){
         $offset =0;
     }
-     $from=DB::connection('mysql2')->select('select * from rws_revision_history_resource where resource_id > '.$offset.' limit 4000 ');
- 
+     $from=DB::connection('mysql3')->select('select * from rws_revision_history_resource where resource_id > '.$offset.' limit 4000 ');
+
      foreach($from as $field ){
          $modify = array('resource_id'=>$field->resource_id,
                          'resource'=>$field->resource,
@@ -103,8 +103,8 @@ function copy3(){
      echo $offset;
      echo " records are done  and Time taken: {$duration} sec ";
      echo $date;
- 
- 
+
+
 }
 
 //copy rws_logs
@@ -117,7 +117,7 @@ function copy4(){
     if($max_entry == NULL){
         $max_entry =0;
     }
-    $from=DB::connection('mysql2')->select('select * from rws_logs where lid >'.$max_entry. ' limit 4000 ');
+    $from=DB::connection('mysql3')->select('select * from rws_logs where lid >'.$max_entry. ' limit 4000 ');
 
     foreach($from as $field ){
         $modify = array('lid'=>$field->lid,
@@ -153,8 +153,8 @@ function copy5(){
     if($max_entry == NULL){
         $max_entry =0;
     }
-    
-    $from=DB::connection('mysql2')->select('select * from rws_watchdog where rec_id >'.$max_entry. ' limit 4000 ');
+
+    $from=DB::connection('mysql3')->select('select * from rws_watchdog where rec_id >'.$max_entry. ' limit 4000 ');
 
     foreach($from as $field ){
         $modify = array('rec_id'=>$field->rec_id,
