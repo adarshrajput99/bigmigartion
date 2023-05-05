@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DemoMail;
 use App\Jobs\run_rules;
-
+use App\Http\Controllers\discount_check;
 class read_db_rules extends Controller
 {
 
@@ -63,6 +63,13 @@ class read_db_rules extends Controller
 
         echo count($processed);
         foreach($processed as $process){
+            if($process->frequency_check == 1  ){
+                $obj = new discount_check();
+                $current_date = date('Y-m-d');
+                if($obj->discount_checker($process->From_freq,$process->To_freq,Null,$current_date))
+                $this->sendEmail('The discount limit is execcede','need to check urgent');
+            }
+            else{
             //echo 'here';
                 /* Write your command here*/
 
@@ -93,10 +100,11 @@ class read_db_rules extends Controller
                     $this->sendEmail('An '.$process->event_type.' Has been reported need to look -ADMIN',$body);
                     DB::connection('mysql')->insert('update logs_rules set rule_id = ?,rule_type=?,exec = ?',[$process->id,$process->event_type,$currentDateTime->format('Y-m-d H:i:s')]);
                 }
-
+            }
                 echo 'Executed';
 
 
         }
     }
+
 }

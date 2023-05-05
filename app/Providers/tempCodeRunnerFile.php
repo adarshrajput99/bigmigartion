@@ -1,2 +1,3 @@
 <?php
 /admin/paddle-subscription
+?>

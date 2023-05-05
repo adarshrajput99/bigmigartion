@@ -86,36 +86,10 @@ class rules extends Resource
             ->sortable()->hideWhenCreating()
             ,
             Date::make('Event Duration', 'event_duration')
-            ->sortable()->sortable()->dependsOn(
-                ['frequency_check'],
-                function (Date $field, NovaRequest $request, FormData $formData) {
-
-                        if($formData->frequency_check){
-                            return $field->readonly(true)->sortable();
-                        }
-
-                })->hideFromDetail()->hideFromIndex()->hideWhenUpdating()
+            ->sortable()->sortable()->hideFromDetail()->hideFromIndex()->hideWhenUpdating()
             ,
-           Time::make('From','event_from')->readonly(false)->dependsOn(
-            ['frequency_check'],
-            function (Time $field, NovaRequest $request, FormData $formData) {
-
-                    if($formData->frequency_check ){
-                        $field->value = null;
-                        return $field->readonly(true)->sortable();
-                    }
-
-            }),
-           Time::make('To','event_to')->nullable()->readonly(false)->dependsOn(
-            ['frequency_check'],
-            function (Time $field, NovaRequest $request, FormData $formData) {
-
-                    if($formData->frequency_check ){
-
-                        return $field->readonly(true)->sortable();
-                    }
-
-            }),
+           Time::make('From','event_from')->readonly(false),
+           Time::make('To','event_to')->nullable()->readonly(false),
             Number::make('Occurrence','occurence')->sortable(),
 
         DependablePanel::make('Panel Title', [

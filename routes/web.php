@@ -22,7 +22,7 @@ use App\Http\Controllers\fill_task_types;
 |
 */
 Route::any('/ret', [read_db_rules::class,'push_to_queue']);
-Route::any('/get_curr_task', [read_db_rules::class,'mail_check']);
+Route::any('/get_curr_task', [read_db_rules::class,'reader']);
 Route::any('/rws_watchdog', [copy::class,'copy5'])->name('custom.route');
 Route::any('/rws_logs', [copy::class,'copy4']);
 Route::get('/', [fill_task_types::class,'fill']);

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('event_duration');
             $table->integer('occurence');
             $table->integer('frequency');
+            $table->time('event_from');
+            $table->time('event_to');
             $table->timestamp('last_executed');
             $table->timestamps();
         });
