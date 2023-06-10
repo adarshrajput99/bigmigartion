@@ -9,7 +9,8 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+
+ public function up(): void
     {
         DB::unprepared('
         CREATE TRIGGER insert_trigger AFTER INSERT ON rules
@@ -20,12 +21,11 @@ return new class extends Migration
         END
     ');
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-
+        //
     }
 };

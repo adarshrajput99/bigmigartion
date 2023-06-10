@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-       $schedule->command('app:queue_task_push')->everyMinute();
+       $schedule->command('app:copy_server_check')->everyThirtyMinutes()->runInBackground();
     }
 
     /**
