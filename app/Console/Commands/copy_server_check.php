@@ -26,6 +26,9 @@ class copy_server_check extends Command
     public function handle()
     {
         $object= app()->make(copy::class);
-        $object->index();
+        $object->copy2();
+        $object->copy3();
+        $object->copy4();
+        $object->copy5();
     }
 }
